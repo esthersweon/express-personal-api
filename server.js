@@ -19,7 +19,7 @@ app.use(function(req, res, next) {
  * DATABASE *
  ************/
 
-// var db = require('./models');
+var db = require('./models');
 
 /**********
  * ROUTES *
@@ -53,8 +53,8 @@ app.get('/api', function apiIndex(req, res) {
     endpoints: [
       {method: 'GET', path: '/api', description: 'Describes all available endpoints'},
       {method: 'GET', path: '/api/profile', description: 'Who I am and Where I am from'},
-      {method: 'GET', path: '/api/restaurants', description: 'Index of all good restaurants'},
-      {method: 'POST', path: '/api/restaurants', description: 'Creat a new good restaurant'},
+      {method: 'GET', path: '/api/restaurant', description: 'Index of all good restaurants'},
+      {method: 'POST', path: '/api/restaurant', description: 'Creat a new good restaurant'},
       {method: 'PUT', path: '/api/restaurants/:id', description: 'Edit a previous restaurant entry and update it'},
       {method: 'DELETE', path: '/api/restaurants/:id', description: 'Destroy a restaurant'}
     ]
@@ -75,6 +75,41 @@ app.get('/api/profile', function profileIndex(req, res) {
     ]
   })
 });
+
+app.get('/api/restaurant', function restaurantIndex(req, res){
+  db.Restaurant.find({}, function(err, allRestaurant){
+  res.json(allRestaurant) 
+  })
+});
+
+app.post('/api/restaurant', function restaurantCreat(req, res){
+  db.Restaurant.create(req.body, function(err, newRestaurant){
+  if (err) { console.log('error', err); }
+  res.json(newRestaurant);
+  });
+});
+
+
+// app.get('/api/restaurant/:id', function restaurantShow(req, res){
+//   db.Restaurant.findOpById(req.params.id, function(err, oneRes){
+//     if (err) {
+//       res.status(500).send(err);
+//       return;
+//     }
+//     res.json(oneRes);
+//   });
+// });
+
+// app.get('/api/restaurant/', function restaurantCreat(req, res){
+//   db.Restaurant.create(req.body, function(err, createRes) {
+//     if (err) { console.log('error', err); };
+//     res.json(createRes);
+//   });
+// });
+
+
+
+
 
 /**********
  * SERVER *

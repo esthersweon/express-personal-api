@@ -1,6 +1,5 @@
 console.log("Sanity Check: JS is working!");
 
-$(document).ready(function(){
 
 // hard-coded data
 var sampleRestaurants = [{
@@ -21,92 +20,85 @@ var sampleRestaurants = [{
   description: 'more creative',
 }];
 
-});
 
-
-  // make a GET request for all albums
+$(document).ready(function(){
+  
+  // make a GET request for all restaurants
   $.ajax({
     method: 'GET',
-    url: '/api/restaurants',
+    url: '/api/restaurant',
     success: handleSuccess,
     error: handleError
   });
 
-  $('#restaurant-form form').on('submit', function(e) {
+  $('#singlebutton').on('submit', function(e) {
     e.preventDefault();
     var formData = $(this).serialize();
 
-    $.post('/api/restaurants', formData, function(restaurant) {
+    $.post('/api/restaurant', formData, function(restaurant) {
       renderAlbum(restaurant);
     })
 
     // reset form input values after formData has been captured
     $(this).trigger("reset");
   });
+});
 
-function handleSuccess (restaurants) {
-  restaurant.forEach(function(restaurant) {
-    renderAlbum(restaurant);
+function handleSuccess (sampleRestaurants) {
+  sampleRestaurants.forEach(function(restaurant) {
+    renderRes(restaurant);
   });
 };
 
-function handleError(err){
+function handleError(err){  
   console.log('There has been an error: ', err);
-}
+};
+
+function renderRes(setRes) {
 
 
-// this function takes a single album and renders it to the page
-function renderAlbum(restaurant) {
-  var formattedSongsList = restaurant.songs.map(function(song) {
-    return `- (${ song.trackNumber }) ${ song.name }`;
-  });
-  var formattedSongsStr = formattedSongsList.join(', ');
+// HTML template string for each Restaurant
+var resHtml = `
+  <!-- one album -->
+  <div class="row album">
 
+    <div class="col-md-10 col-md-offset-1">
+      <div class="panel panel-default">
+        <div class="panel-body">
 
-  // HTML template string for each album
-  var albumHtml = `
-    <!-- one album -->
-    <div class="row album">
-
-      <div class="col-md-10 col-md-offset-1">
-        <div class="panel panel-default">
-          <div class="panel-body">
-
-          <!-- begin album internal row -->
-            <div class='row'>
-              <div class="col-md-3 col-xs-12 thumbnail album-art">
-                <img src="../images/800x800.png" alt="album image">
-              </div>
-
-              <div class="col-md-9 col-xs-12">
-                <ul class="list-group">
-                  <li class="list-group-item">
-                    <h4 class='inline-header'>Album Name:</h4>
-                    <span class='album-name'>${ album.name }</span>
-                  </li>
-
-                  <li class="list-group-item">
-                    <h4 class='inline-header'>Artist Name:</h4>
-                    <span class='artist-name'>${ album.artistName }</span>
-                  </li>
-
-                  <li class="list-group-item">
-                    <h4 class='inline-header'>Released date:</h4>
-                    <span class='album-releaseDate'>${ album.releaseDate }</span>
-                  </li>
-                  <li class="list-group-item">
-                    <h4 class="inline-header">Songs:</h4>
-                    <span class='album-songList'>${formattedSongsStr} </span>
-                  </li>
-                </ul>
-              </div>
-
-            </div>
-            <!-- end of album internal row -->
-
-            <div class='panel-footer'>
+        <!-- begin album internal row -->
+          <div class='row'>
+            <div class="col-md-3 col-xs-12 thumbnail album-art">
+              <img src="../images/Restaurant.jpg" alt="album image">
             </div>
 
+            <div class="col-md-9 col-xs-12">
+              <ul class="list-group">
+                <li class="list-group-item">
+                  <h4 class='inline-header'>Restaurant Name:</h4>
+                  <span class='album-name'>${ setRes.name }</span>
+                </li>
+
+                <li class="list-group-item">
+                  <h4 class='inline-header'> Type of Style:</h4>
+                  <span class='artist-name'>${ setRes.typeOfStyle }</span>
+                </li>
+
+                <li class="list-group-item">
+                  <h4 class='inline-header'>Average Price:</h4>
+                  <span class='album-releaseDate'>${ setRes.averagePrice }</span>
+                </li>
+                <li class="list-group-item">
+                  <h4 class="inline-header">Description</h4>
+                  <span class='album-songList'>${ setRes.description } </span>
+                </li>
+              </ul>
+            </div>
+
+          </div>
+          <!-- end of album internal row -->
+
+          <div class='panel-footer'>
           </div>
 
         </div>
@@ -114,18 +106,44 @@ function renderAlbum(restaurant) {
       </div>
 
     </div>
-    <!-- end one album -->
-  `;
 
-  // render HTML template in the DOM
-  $('#albums').prepend(sampleRestaurants);
+  </div>
+  <!-- end one album -->
+`;
 
-
+// render HTML template in the DOM
+  $('#resInput').prepend(resHtml);
+// your code
 }
 
-// your code
 
+  var $createRes = $('#create-res');
+  // listen for submit even on form
+  $createRes.on('submit', function (event) {
+    event.preventDefault();
 
+  // serialze form data
+  var newRes = $(this).serialize();
 
+  // POST request to create new todo
+  $.ajax({
+    method: "POST",
+    url: '/api/restaurant',
+    data: newRes,
+    success: function onCreateSuccess(response) {
+      console.log(response);
+
+      // add new todo to `allTodo`
+      allRestaurant.push(response);
+
+      // render all todos to view
+      render();
+    }
+
+    });
+})
+  
+
+    
 
 
