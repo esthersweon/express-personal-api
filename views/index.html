@@ -4,26 +4,135 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Blank</title>
+    <title>Wiseta</title>
 
     <!-- STYLESHEETS -->
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <link rel="stylesheet" href="/styles/styles.css">
 
     <!-- VENDOR SCRIPTS -->
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
     <!-- APPLICATION SCRIPTS -->
     <script src="/scripts/app.js"></script>
   </head>
   <body>
-    <div class="container">
-      <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-          <h1>Under Construction</h1>
-          <h4><a href="/api">Read My API Documentation</a></h4>
-        </div>
+    <div class="jumbotron">
+      <div class="container">
+        <h1>Welcome to Wiseta</h1>
+        <P>Eat wiser, Live healthier!</P>
+        <h4><a href="/api">Read My API Documentation</a></h4>
+
       </div>
     </div>
+
+    <section id='restaurant-form' class="container">
+      <div class="row">
+      <div class="col-md-10 col-md-offset-1">
+
+        <form class="form-horizontal">
+          <fieldset>
+
+            <!-- Form Name -->
+            <legend>Add New Restaurant</legend>
+
+            <!-- Text input-->
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="name">Restaurant Name</label>
+              <div class="col-md-4">
+              <input id="name" name="name" type="text" placeholder="Dragon Eye" class="form-control input-md" required="">
+
+              </div>
+            </div>
+
+            <!-- Text input-->
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="type">Type of Style</label>
+              <div class="col-md-4">
+              <input id="textinput" name="artistName" type="text" placeholder="Chinese" class="form-control input-md">
+
+              </div>
+            </div>
+
+            <!-- Text input-->
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="price">Average Price</label>
+              <div class="col-md-4">
+              <input id="releaseDate" name="releaseDate" type="text" placeholder="$20/person" class="form-control input-md">
+
+              </div>
+            </div>
+
+            <!-- Textarea -->
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="description">Description</label>
+              <div class="col-md-4">
+                <textarea class="form-control" id="feeling" name="comfortable">very comfortable</textarea>
+              </div>
+            </div>
+
+
+            <!-- Button -->
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="singlebutton">Save Restaurant</label>
+              <div class="col-md-4">
+                <button id="singlebutton" name="singlebutton" class="btn btn-primary">Submit</button>
+              </div>
+            </div>
+          </fieldset>
+        </form>
+      </div>
+      </div>
+    </section>
+
+    <section class="container">
+      <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+          <h2>Restaurant</h2>
+        </div>
+      </div>
+      <!-- albums! -->
+      <div id="Restaurants"></div>
+    </section>
+
+    <!-- begin songModal: this is not visible until you call .modal() on it -->
+    <div class="modal fade" tabindex="-1" role="dialog" id="songModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Create Restaurant</h4>
+          </div>
+          <div class="modal-body">
+
+            <fieldset class='form-horizontal'>
+              <!-- Text input-->
+              <div class="form-group">
+                <label class="col-md-4 control-label" for="songName"> Name</label>
+                <div class="col-md-4">
+                  <input id="songName" name="songName" type="text" placeholder="" class="form-control input-md" required="">
+                </div>
+              </div>
+
+              <!-- Text input-->
+              <div class="form-group">
+                <label class="col-md-4 control-label" for="trackNumber">Track Number</label>
+                <div class="col-md-4">
+                  <input id="trackNumber" name="trackNumber" type="text" placeholder="" class="form-control input-md">
+                </div>
+              </div>
+            </fieldset>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" id="saveSong">Save changes</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+
   </body>
 </html>
