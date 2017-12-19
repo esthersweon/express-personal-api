@@ -76,13 +76,13 @@ app.get('/api/profile', function profileIndex(req, res) {
   })
 });
 
-app.get('/api/restaurant', function restaurantIndex(req, res){
+app.get('/api/restaurants', function restaurantIndex(req, res){
   db.Restaurant.find({}, function(err, allRestaurant){
-  res.json(allRestaurant) 
+    res.json(allRestaurant) 
   })
 });
 
-app.post('/api/restaurant', function restaurantCreat(req, res){
+app.post('/api/restaurants', function restaurantCreat(req, res){
   db.Restaurant.create(req.body, function(err, newRestaurant){
   if (err) { console.log('error', err); }
   res.json(newRestaurant);
@@ -90,24 +90,15 @@ app.post('/api/restaurant', function restaurantCreat(req, res){
 });
 
 
-// app.get('/api/restaurant/:id', function restaurantShow(req, res){
-//   db.Restaurant.findOpById(req.params.id, function(err, oneRes){
-//     if (err) {
-//       res.status(500).send(err);
-//       return;
-//     }
-//     res.json(oneRes);
-//   });
-// });
-
-// app.get('/api/restaurant/', function restaurantCreat(req, res){
-//   db.Restaurant.create(req.body, function(err, createRes) {
-//     if (err) { console.log('error', err); };
-//     res.json(createRes);
-//   });
-// });
-
-
+app.get('/api/restaurants/:id', function restaurantShow(req, res){
+  db.Restaurant.findById(req.params.id, function(err, oneRes){
+    if (err) {
+      res.status(500).send(err);
+      return;
+    }
+    res.json(oneRes);
+  });
+});
 
 
 

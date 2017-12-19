@@ -25,27 +25,14 @@ var sampleRestaurants = [{
   description: 'more creative',
 }];
 
-
 db.Restaurant.remove({}, function(err, restaurants){
   console.log('removed all restaurants');
 
-    db.Restaurant.create(sampleRestaurants, function(err, restaurants){
+  db.Restaurant.create(sampleRestaurants, function(err, restaurants){
     // code in here runs after all , restaurants are created
-    if (err) { return console.log('ERROR', err); }
+    if (err) { console.log('ERROR', err); }
     console.log("all restaurants:", restaurants);
     console.log("created", restaurants.length, "restaurants");
     process.exit();
-  }); // end remove function
-});
-
-//   sampleRestaurants.forEach(function (resObj) {
-//     var restaurant = new db.Restaurant(resObj);
-//     restaurant.save(function(err, savedRes){
-//       if (err) {
-//         console.log(err);
-//         return;
-//       }
-//       console.log('saved ', savedRes.description);
-//     });
-//   });
-// });
+  }); 
+}); // end remove function

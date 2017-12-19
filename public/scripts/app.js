@@ -26,17 +26,17 @@ $(document).ready(function(){
   // make a GET request for all restaurants
   $.ajax({
     method: 'GET',
-    url: '/api/restaurant',
+    url: '/api/restaurants',
     success: handleSuccess,
     error: handleError
   });
 
-  $('#singlebutton').on('submit', function(e) {
+  $('#restaurant-form form').on('submit', function(e) {
     e.preventDefault();
     var formData = $(this).serialize();
 
-    $.post('/api/restaurant', formData, function(restaurant) {
-      renderAlbum(restaurant);
+    $.post('/api/restaurants', formData, function(restaurant) {
+      renderRes(restaurant);
     })
 
     // reset form input values after formData has been captured
